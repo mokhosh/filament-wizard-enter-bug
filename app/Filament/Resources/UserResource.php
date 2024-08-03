@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,18 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Wizard::make()
+                    ->schema([
+                        Forms\Components\Wizard\Step::make('basic info')
+                            ->schema([
+                                TextInput::make('name'),
+                                TextInput::make('email'),
+                            ]),
+                        Forms\Components\Wizard\Step::make('password')
+                            ->schema([
+                                TextInput::make('password'),
+                            ])
+                    ])
             ]);
     }
 
